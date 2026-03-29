@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "baseUrl": "https://gmail-rl-delivery-20260329-6.vercel.app",
+  "validationSteps": [
+    "Reset the deployed environment",
+    "Create a draft",
+    "Send the draft",
+    "Star the sent thread",
+    "Apply an important label",
+    "Archive the sent thread",
+    "Restore the seeded snapshot",
+    "Verify snapshot restore behavior"
+  ],
+  "inboxThreadCountBefore": 2,
+  "sentThreadCountAfter": 1,
+  "sentThreadCountAfterRestore": 0,
+  "activeSnapshotId": "snapshot-8",
+  "snapshotCount": 7,
+  "sentThreadId": "thread-4",
+  "sentThreadStarred": true,
+  "sentThreadLabelsBeforeArchive": [
+    "sent",
+    "important"
+  ],
+  "sentThreadLabelsAfterArchive": [
+    "sent",
+    "important",
+    "archive"
+  ],
+  "restoredSnapshotId": "snapshot-8"
+}

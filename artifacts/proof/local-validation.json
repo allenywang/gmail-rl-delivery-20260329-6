@@ -1,0 +1,37 @@
+{
+  "baseUrl": "http://127.0.0.1:61297",
+  "launchCommands": [
+    "cd deliveries/gmail-rl-6",
+    "pnpm test",
+    "pnpm typecheck",
+    "pnpm validate:local",
+    "pnpm start"
+  ],
+  "validationSteps": [
+    "Reset the environment",
+    "Create a draft",
+    "Send the draft",
+    "Star the sent thread",
+    "Apply an important label",
+    "Archive the sent thread",
+    "Restore the seeded snapshot",
+    "Verify snapshot growth and restore behavior"
+  ],
+  "inboxThreadCountBefore": 2,
+  "sentThreadCountAfter": 1,
+  "sentThreadCountAfterRestore": 0,
+  "activeSnapshotId": "snapshot-42",
+  "snapshotCount": 63,
+  "sentThreadId": "thread-4",
+  "sentThreadStarred": true,
+  "sentThreadLabelsBeforeArchive": [
+    "sent",
+    "important"
+  ],
+  "sentThreadLabelsAfterArchive": [
+    "sent",
+    "important",
+    "archive"
+  ],
+  "restoredSnapshotId": "snapshot-42"
+}
