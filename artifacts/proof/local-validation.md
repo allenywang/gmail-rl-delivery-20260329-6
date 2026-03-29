@@ -1,6 +1,6 @@
 # Gmail RL Local Validation
 
-Base URL: http://127.0.0.1:59885
+Base URL: http://127.0.0.1:61297
 
 ## Launch Commands
 - cd deliveries/gmail-rl-6
@@ -25,8 +25,8 @@ Base URL: http://127.0.0.1:59885
 - Sent thread starred: true
 - Labels before archive: sent, important
 - Labels after archive: sent, important, archive
-- Snapshot count observed: 47
-- Restore snapshot id: snapshot-26
+- Snapshot count observed: 63
+- Restore snapshot id: snapshot-42
 - Sent threads after restore: 0
 
-JSON proof: /private/tmp/google-aglit-gmail-rl-6/deliveries/gmail-rl-6/artifacts/proof/local-validation.json
+JSON proof: /private/tmp/gmail-rl-delivery-20260329-6/artifacts/proof/local-validation.json

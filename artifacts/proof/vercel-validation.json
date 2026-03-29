@@ -1,27 +1,21 @@
 {
-  "baseUrl": "http://127.0.0.1:61297",
-  "launchCommands": [
-    "cd deliveries/gmail-rl-6",
-    "pnpm test",
-    "pnpm typecheck",
-    "pnpm validate:local",
-    "pnpm start"
-  ],
+  "ok": true,
+  "baseUrl": "https://gmail-rl-delivery-20260329-6.vercel.app",
   "validationSteps": [
-    "Reset the environment",
+    "Reset the deployed environment",
     "Create a draft",
     "Send the draft",
     "Star the sent thread",
     "Apply an important label",
     "Archive the sent thread",
     "Restore the seeded snapshot",
-    "Verify snapshot growth and restore behavior"
+    "Verify snapshot restore behavior"
   ],
   "inboxThreadCountBefore": 2,
   "sentThreadCountAfter": 1,
   "sentThreadCountAfterRestore": 0,
-  "activeSnapshotId": "snapshot-42",
-  "snapshotCount": 63,
+  "activeSnapshotId": "snapshot-8",
+  "snapshotCount": 7,
   "sentThreadId": "thread-4",
   "sentThreadStarred": true,
   "sentThreadLabelsBeforeArchive": [
@@ -33,5 +27,5 @@
     "important",
     "archive"
   ],
-  "restoredSnapshotId": "snapshot-42"
+  "restoredSnapshotId": "snapshot-8"
 }
