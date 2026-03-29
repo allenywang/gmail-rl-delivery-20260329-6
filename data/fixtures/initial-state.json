@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "seed": "gmail-rl-v1",
+  "user": {
+    "id": "user-google-agent",
+    "displayName": "Allen Wang",
+    "primaryEmail": "allen@aglit.ai"
+  },
+  "nextIds": {
+    "snapshot": 2,
+    "thread": 4,
+    "message": 8,
+    "draft": 2
+  },
+  "labels": [
+    { "id": "inbox", "name": "Inbox", "kind": "system" },
+    { "id": "starred", "name": "Starred", "kind": "system" },
+    { "id": "sent", "name": "Sent", "kind": "system" },
+    { "id": "archive", "name": "Archive", "kind": "system" },
+    { "id": "travel", "name": "Travel", "kind": "user" },
+    { "id": "important", "name": "Important", "kind": "user" }
+  ],
+  "threads": [
+    {
+      "id": "thread-1",
+      "subject": "Q2 launch checklist",
+      "participants": ["alex@google.com", "allen@aglit.ai"],
+      "messageIds": ["message-1", "message-2"],
+      "labels": ["inbox", "important"],
+      "unread": true,
+      "starred": true,
+      "lastUpdatedAt": "2026-03-28T17:05:00.000Z"
+    },
+    {
+      "id": "thread-2",
+      "subject": "Travel options for Cloud Next",
+      "participants": ["travel@google.com", "allen@aglit.ai"],
+      "messageIds": ["message-3", "message-4"],
+      "labels": ["inbox", "travel"],
+      "unread": false,
+      "starred": false,
+      "lastUpdatedAt": "2026-03-27T19:10:00.000Z"
+    },
+    {
+      "id": "thread-3",
+      "subject": "Weekly design sync notes",
+      "participants": ["design@google.com", "allen@aglit.ai"],
+      "messageIds": ["message-5", "message-6"],
+      "labels": ["archive"],
+      "unread": false,
+      "starred": false,
+      "lastUpdatedAt": "2026-03-26T14:30:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "message-1",
+      "threadId": "thread-1",
+      "from": "alex@google.com",
+      "to": ["allen@aglit.ai"],
+      "cc": [],
+      "sentAt": "2026-03-28T16:42:00.000Z",
+      "body": "Can you confirm the launch checklist covers training, escalation, and analytics instrumentation?"
+    },
+    {
+      "id": "message-2",
+      "threadId": "thread-1",
+      "from": "allen@aglit.ai",
+      "to": ["alex@google.com"],
+      "cc": [],
+      "sentAt": "2026-03-28T17:05:00.000Z",
+      "body": "Yes. I added instrumentation checkpoints and a launch-day rollback section."
+    },
+    {
+      "id": "message-3",
+      "threadId": "thread-2",
+      "from": "travel@google.com",
+      "to": ["allen@aglit.ai"],
+      "cc": [],
+      "sentAt": "2026-03-27T18:20:00.000Z",
+      "body": "There are still seats on the Monday SFO to LAS shuttle. Reply if you want us to hold one."
+    },
+    {
+      "id": "message-4",
+      "threadId": "thread-2",
+      "from": "allen@aglit.ai",
+      "to": ["travel@google.com"],
+      "cc": [],
+      "sentAt": "2026-03-27T19:10:00.000Z",
+      "body": "Please hold a seat and keep the hotel near the conference venue."
+    },
+    {
+      "id": "message-5",
+      "threadId": "thread-3",
+      "from": "design@google.com",
+      "to": ["allen@aglit.ai"],
+      "cc": [],
+      "sentAt": "2026-03-26T13:05:00.000Z",
+      "body": "Here are the notes from this week’s sync. The final action item is to ship the inbox density toggle."
+    },
+    {
+      "id": "message-6",
+      "threadId": "thread-3",
+      "from": "allen@aglit.ai",
+      "to": ["design@google.com"],
+      "cc": [],
+      "sentAt": "2026-03-26T14:30:00.000Z",
+      "body": "Thanks. I archived the notes and added the density toggle to the rollout board."
+    }
+  ],
+  "drafts": [
+    {
+      "id": "draft-1",
+      "to": ["ops@google.com"],
+      "cc": [],
+      "bcc": [],
+      "subject": "Inbox retention review",
+      "body": "Please review the retention settings before we mirror them into the RL environment.",
+      "createdAt": "2026-03-28T10:00:00.000Z",
+      "updatedAt": "2026-03-28T10:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gmail RL Environment</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">Gmail RL</div>
+        <button id="compose-button" class="compose-button">Compose</button>
+        <nav id="label-list" class="label-list"></nav>
+        <section class="snapshot-panel">
+          <div class="panel-title">Snapshots</div>
+          <div id="snapshot-list" class="snapshot-list"></div>
+          <button id="reset-button" class="secondary-button">Reset Environment</button>
+        </section>
+      </aside>
+      <main class="main-column">
+        <header class="toolbar">
+          <input id="search-input" type="search" placeholder="Search mail" />
+          <div id="meta-pill" class="meta-pill"></div>
+        </header>
+        <section class="content-grid">
+          <section class="list-column">
+            <div id="list-title" class="section-title">Inbox</div>
+            <div id="thread-list" class="thread-list"></div>
+            <div id="draft-list" class="draft-list hidden"></div>
+          </section>
+          <section class="detail-column">
+            <div id="thread-detail" class="thread-detail empty-state">Select a thread to inspect messages.</div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="compose-dialog" class="compose-dialog">
+      <form id="compose-form" method="dialog" class="compose-form">
+        <div class="compose-header">
+          <h2>Compose</h2>
+          <button type="button" id="close-compose" class="text-button">Close</button>
+        </div>
+        <label>
+          <span>To</span>
+          <input id="draft-to" name="to" type="text" placeholder="name@example.com, person@example.com" required />
+        </label>
+        <label>
+          <span>Cc</span>
+          <input id="draft-cc" name="cc" type="text" placeholder="Optional" />
+        </label>
+        <label>
+          <span>Bcc</span>
+          <input id="draft-bcc" name="bcc" type="text" placeholder="Optional" />
+        </label>
+        <label>
+          <span>Subject</span>
+          <input id="draft-subject" name="subject" type="text" placeholder="Subject" />
+        </label>
+        <label>
+          <span>Body</span>
+          <textarea id="draft-body" name="body" rows="8" placeholder="Write your message"></textarea>
+        </label>
+        <div class="compose-actions">
+          <button type="submit" class="compose-button">Save draft</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="thread-actions-template">
+      <div class="detail-actions">
+        <button data-action="toggle-star" class="secondary-button">Toggle Star</button>
+        <button data-action="toggle-read" class="secondary-button">Toggle Read</button>
+        <button data-action="archive" class="secondary-button">Archive</button>
+        <button data-action="label-important" class="secondary-button">Add Important</button>
+      </div>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

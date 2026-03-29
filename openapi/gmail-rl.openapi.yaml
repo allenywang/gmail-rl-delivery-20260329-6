@@ -1,0 +1,415 @@
+openapi: 3.1.0
+info:
+  title: Gmail RL Environment API
+  version: 0.1.0
+  description: Stateful Gmail-like environment API used for RL tasks, reset, and snapshot restore.
+servers:
+  - url: http://127.0.0.1:4010
+paths:
+  /api/env:
+    get:
+      summary: Get environment metadata
+      responses:
+        '200':
+          description: Environment metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentMetadata'
+  /api/labels:
+    get:
+      summary: List labels
+      responses:
+        '200':
+          description: Labels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  labels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Label'
+                required: [labels]
+  /api/threads:
+    get:
+      summary: List thread summaries
+      parameters:
+        - in: query
+          name: label
+          schema:
+            type: string
+          description: Filter by label id. Use drafts to view draft list in the UI.
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Full-text search against subject, participants, and message bodies.
+      responses:
+        '200':
+          description: Thread summaries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  threads:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ThreadSummary'
+                required: [threads]
+  /api/threads/{threadId}:
+    get:
+      summary: Get a thread with messages
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thread detail
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  thread:
+                    $ref: '#/components/schemas/ThreadDetail'
+                required: [thread]
+        '404':
+          description: Thread not found
+  /api/threads/{threadId}/star:
+    post:
+      summary: Toggle starred state
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                starred:
+                  type: boolean
+              required: [starred]
+      responses:
+        '200':
+          description: Updated thread
+  /api/threads/{threadId}/archive:
+    post:
+      summary: Move a thread out of inbox into archive
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated thread
+  /api/threads/{threadId}/read:
+    post:
+      summary: Toggle unread state
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unread:
+                  type: boolean
+              required: [unread]
+      responses:
+        '200':
+          description: Updated thread
+  /api/threads/{threadId}/labels:
+    post:
+      summary: Add or remove labels from a thread
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                add:
+                  type: array
+                  items:
+                    type: string
+                remove:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Updated thread
+  /api/drafts:
+    get:
+      summary: List drafts
+      responses:
+        '200':
+          description: Draft list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  drafts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Draft'
+                required: [drafts]
+    post:
+      summary: Create a draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftInput'
+      responses:
+        '201':
+          description: Draft created
+  /api/drafts/{draftId}:
+    put:
+      summary: Update a draft
+      parameters:
+        - in: path
+          name: draftId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftInput'
+      responses:
+        '200':
+          description: Draft updated
+  /api/drafts/{draftId}/send:
+    post:
+      summary: Send a draft and create a sent thread
+      parameters:
+        - in: path
+          name: draftId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Send result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  thread:
+                    $ref: '#/components/schemas/ThreadDetail'
+                required: [thread]
+  /api/snapshots:
+    get:
+      summary: List saved snapshots
+      responses:
+        '200':
+          description: Snapshot list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  snapshots:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+                required: [snapshots]
+  /api/snapshots/{snapshotId}/restore:
+    post:
+      summary: Restore a prior snapshot
+      parameters:
+        - in: path
+          name: snapshotId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Restored state metadata
+  /api/reset:
+    post:
+      summary: Reset the environment to the seeded fixture
+      responses:
+        '200':
+          description: Reset metadata
+components:
+  schemas:
+    EnvironmentMetadata:
+      type: object
+      properties:
+        app:
+          type: string
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            displayName:
+              type: string
+            primaryEmail:
+              type: string
+          required: [id, displayName, primaryEmail]
+        activeSnapshotId:
+          type: string
+        snapshotCount:
+          type: integer
+        threadCount:
+          type: integer
+        draftCount:
+          type: integer
+      required: [app, user, activeSnapshotId, snapshotCount, threadCount, draftCount]
+    Label:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        kind:
+          type: string
+      required: [id, name, kind]
+    ThreadSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        subject:
+          type: string
+        participants:
+          type: array
+          items:
+            type: string
+        labels:
+          type: array
+          items:
+            type: string
+        unread:
+          type: boolean
+        starred:
+          type: boolean
+        lastUpdatedAt:
+          type: string
+        snippet:
+          type: string
+      required: [id, subject, participants, labels, unread, starred, lastUpdatedAt, snippet]
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        threadId:
+          type: string
+        from:
+          type: string
+        to:
+          type: array
+          items:
+            type: string
+        cc:
+          type: array
+          items:
+            type: string
+        sentAt:
+          type: string
+        body:
+          type: string
+      required: [id, threadId, from, to, cc, sentAt, body]
+    ThreadDetail:
+      allOf:
+        - $ref: '#/components/schemas/ThreadSummary'
+        - type: object
+          properties:
+            messages:
+              type: array
+              items:
+                $ref: '#/components/schemas/Message'
+          required: [messages]
+    Draft:
+      type: object
+      properties:
+        id:
+          type: string
+        to:
+          type: array
+          items:
+            type: string
+        cc:
+          type: array
+          items:
+            type: string
+        bcc:
+          type: array
+          items:
+            type: string
+        subject:
+          type: string
+        body:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required: [id, to, cc, bcc, subject, body, createdAt, updatedAt]
+    DraftInput:
+      type: object
+      properties:
+        to:
+          type: array
+          items:
+            type: string
+        cc:
+          type: array
+          items:
+            type: string
+        bcc:
+          type: array
+          items:
+            type: string
+        subject:
+          type: string
+        body:
+          type: string
+      required: [to, cc, bcc, subject, body]
+    Snapshot:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        reason:
+          type: string
+        active:
+          type: boolean
+      required: [id, createdAt, reason, active]
